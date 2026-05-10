@@ -630,7 +630,11 @@ Perform a structured gap analysis of the AI system described against specific EU
 The user profile is "${profile}":
 - "compliance": Focus on internal compliance gaps and remediation roadmap
 - "vendor": Focus on product certification requirements and go-to-market blockers
-- "procurement": Focus on supplier risk and contract/due diligence requirements
+- "procurement": Focus on supplier risk and contract/due diligence requirements. 
+  Score reflects the vendor's demonstrated compliance posture based on evidence provided — 
+  a vendor with a technical datasheet, GDPR DPA and reference EU clients should score 
+  at minimum 35 even with gaps in bias documentation and AI Act classification, 
+  as these are remediable gaps, not active violations.
 
 Respond ONLY with valid JSON, no markdown, no backticks, exactly this structure:
 {
