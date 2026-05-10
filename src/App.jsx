@@ -3,25 +3,25 @@ import { ARTICLES, ARTICLES_BY_PROFILE, EU_AI_ACT_META } from "./data/articles.j
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 const C = {
-  bg: "#0D0F14",
-  surface: "#13161E",
-  surfaceHover: "#1A1E29",
-  border: "#1F2433",
-  borderLight: "#2A3045",
-  gold: "#C9A84C",
-  goldLight: "#E2C97E",
-  goldFaint: "rgba(201,168,76,0.08)",
-  text: "#E8EAF0",
-  textSub: "#8892A4",
-  textMuted: "#4A5468",
-  red: "#E05252",
-  redFaint: "rgba(224,82,82,0.08)",
-  amber: "#D4822A",
-  amberFaint: "rgba(212,130,42,0.08)",
-  blue: "#4A8FD4",
-  blueFaint: "rgba(74,143,212,0.08)",
-  green: "#4CAF7D",
-  greenFaint: "rgba(76,175,125,0.08)",
+  bg: "#F4F6F9",
+  surface: "#FFFFFF",
+  surfaceHover: "#F0F2F5",
+  border: "#DDE2EC",
+  borderLight: "#C8D0DF",
+  gold: "#8B6914",
+  goldLight: "#A07820",
+  goldFaint: "rgba(139,105,20,0.08)",
+  text: "#111827",
+  textSub: "#374151",
+  textMuted: "#6B7280",
+  red: "#B91C1C",
+  redFaint: "rgba(185,28,28,0.07)",
+  amber: "#B45309",
+  amberFaint: "rgba(180,83,9,0.07)",
+  blue: "#1D4ED8",
+  blueFaint: "rgba(29,78,216,0.07)",
+  green: "#166534",
+  greenFaint: "rgba(22,101,52,0.07)",
 };
 
 const PROFILES = [
@@ -78,6 +78,7 @@ const s = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    background: C.surface,
   },
   logo: {
     display: "flex",
@@ -169,6 +170,7 @@ const s = {
     cursor: "pointer",
     transition: "all 0.2s",
     position: "relative",
+    boxShadow: active ? "none" : "0 1px 3px rgba(0,0,0,0.06)",
   }),
   profileIcon: (active) => ({
     fontSize: 20,
@@ -179,7 +181,7 @@ const s = {
   profileLabel: (active) => ({
     fontSize: 13,
     fontWeight: 600,
-    color: active ? C.goldLight : C.text,
+    color: active ? C.gold : C.text,
     marginBottom: 4,
     letterSpacing: "0.02em",
   }),
@@ -204,6 +206,7 @@ const s = {
     resize: "vertical",
     minHeight: 140,
     outline: "none",
+    boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
   },
   charCount: {
     fontSize: 10,
@@ -262,9 +265,10 @@ const s = {
     border: `1px solid ${C.border}`,
     padding: "1.25rem",
     marginBottom: "1rem",
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 1.8,
     color: C.textSub,
+    boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
   },
   streamLabel: {
     fontSize: 10,
@@ -277,6 +281,8 @@ const s = {
     border: `1px solid ${C.border}`,
     marginBottom: 12,
     overflow: "hidden",
+    background: C.surface,
+    boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
   },
   resultHeader: (risk) => ({
     display: "flex",
@@ -291,6 +297,7 @@ const s = {
     letterSpacing: "0.08em",
     textTransform: "uppercase",
     color: C.textSub,
+    fontWeight: 600,
   },
   riskBadge: (risk) => ({
     fontSize: 10,
@@ -299,6 +306,7 @@ const s = {
     color: risk === "HIGH" ? C.red : risk === "MEDIUM" ? C.amber : C.green,
     letterSpacing: "0.08em",
     textTransform: "uppercase",
+    fontWeight: 600,
   }),
   resultBody: {
     padding: "1rem",
@@ -310,7 +318,7 @@ const s = {
     marginBottom: "0.5rem",
   },
   resultText: {
-    fontSize: 12,
+    fontSize: 13,
     color: C.textSub,
     lineHeight: 1.7,
     marginBottom: "0.75rem",
@@ -318,7 +326,7 @@ const s = {
   gapList: {
     margin: 0,
     padding: "0 0 0 1rem",
-    fontSize: 12,
+    fontSize: 13,
     color: C.textSub,
     lineHeight: 1.8,
   },
@@ -326,7 +334,7 @@ const s = {
     display: "flex",
     alignItems: "flex-start",
     gap: 8,
-    fontSize: 12,
+    fontSize: 13,
     color: C.textSub,
     lineHeight: 1.6,
     marginBottom: 6,
@@ -354,13 +362,13 @@ const s = {
     marginBottom: "0.75rem",
   },
   summaryText: {
-    fontSize: 13,
+    fontSize: 14,
     color: C.text,
     lineHeight: 1.75,
   },
   sourceLink: {
-    fontSize: 10,
-    color: C.textMuted,
+    fontSize: 11,
+    color: C.blue,
     textDecoration: "none",
     letterSpacing: "0.04em",
     borderBottom: `1px solid ${C.border}`,
@@ -370,7 +378,7 @@ const s = {
     background: C.redFaint,
     border: `1px solid ${C.red}`,
     padding: "1rem",
-    fontSize: 12,
+    fontSize: 13,
     color: C.red,
     marginTop: "1rem",
   },
@@ -396,6 +404,7 @@ const s = {
     fontSize: 10,
     color: C.textMuted,
     letterSpacing: "0.06em",
+    background: C.surface,
   },
 };
 
@@ -461,10 +470,15 @@ Application Date: ${a.applicationDate}
 
   const response = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
-    headers: {"Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01","anthropic-dangerous-direct-browser-access": "true"},
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true",
+    },
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
+      max_tokens: 4000,
       system: systemPrompt,
       messages: [{ role: "user", content: userMessage }],
     }),
@@ -590,8 +604,9 @@ export default function App() {
         @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-        textarea:focus { border-color: ${C.gold} !important; }
+        textarea:focus { border-color: ${C.gold} !important; outline: none; }
         textarea::placeholder { color: ${C.textMuted}; }
+        button:hover { opacity: 0.85; }
       `}</style>
 
       {/* Header */}
@@ -708,6 +723,8 @@ export default function App() {
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
                   color: READINESS_LABELS[result.overallReadiness]?.color || C.text,
+                  fontWeight: 600,
+                  background: C.surface,
                 }}>
                   {READINESS_LABELS[result.overallReadiness]?.label}
                 </div>
@@ -725,11 +742,11 @@ export default function App() {
                 ].map(([k, v]) => v && (
                   <div key={k}>
                     <div style={{ fontSize: 10, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 3 }}>{k}</div>
-                    <div style={{ fontSize: 12, color: C.text }}>{v}</div>
+                    <div style={{ fontSize: 13, color: C.text, fontWeight: 500 }}>{v}</div>
                   </div>
                 ))}
               </div>
-              <div style={{ fontSize: 12, color: C.textSub, lineHeight: 1.7, marginTop: "0.5rem" }}>
+              <div style={{ fontSize: 13, color: C.textSub, lineHeight: 1.7, marginTop: "0.5rem" }}>
                 {result.classification?.riskRationale}
               </div>
             </div>
@@ -766,7 +783,7 @@ export default function App() {
                     <div key={i} style={{ ...s.actionItem, marginBottom: 10 }}>
                       <div style={s.actionDot(a.priority)} />
                       <span>
-                        <span style={{ color: a.priority === "HIGH" ? C.red : a.priority === "MEDIUM" ? C.amber : C.green, marginRight: 6, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                        <span style={{ color: a.priority === "HIGH" ? C.red : a.priority === "MEDIUM" ? C.amber : C.green, marginRight: 6, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600 }}>
                           [{a.priority}]
                         </span>
                         {a.action}
@@ -779,7 +796,7 @@ export default function App() {
             )}
 
             {/* Source */}
-            <div style={{ marginTop: "1.5rem", fontSize: 11, color: C.textMuted, lineHeight: 1.8 }}>
+            <div style={{ marginTop: "1.5rem", fontSize: 12, color: C.textMuted, lineHeight: 1.8 }}>
               <div>Fonte normativa: <a href={EU_AI_ACT_META.source} target="_blank" rel="noopener noreferrer" style={s.sourceLink}>Regulation (EU) 2024/1689 — EUR-Lex Official</a></div>
               <div>Versione: {EU_AI_ACT_META.published} · Profilo: {selectedProfile?.label}</div>
             </div>
