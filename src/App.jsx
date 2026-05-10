@@ -663,7 +663,13 @@ Respond ONLY with valid JSON, no markdown, no backticks, exactly this structure:
   "redFlags": ["critical issue 1", "critical issue 2"]
 }
 
-complianceScore mapping: NOT_COMPLIANT=5-25, PARTIALLY_COMPLIANT=26-55, LARGELY_COMPLIANT=56-79, COMPLIANT=80-100.
+complianceScore mapping: 
+- NOT_COMPLIANT = 5–20 (no documentation, no oversight, active violations)
+- PARTIALLY_COMPLIANT = 35–55 (some practices exist but major formal gaps remain)
+- LARGELY_COMPLIANT = 62–78 (solid foundations, minor procedural gaps)
+- COMPLIANT = 82–95 (full documentation, QMS, conformity assessment complete)
+
+Important: a system with documented practices, human oversight, and basic audits but missing formal frameworks should score 35–55, NOT below 30. Reserve scores below 20 for systems with zero compliance measures or active prohibited practices.
 Be specific. Base every finding directly on the AI system description provided.`;
 
   const userMessage = `AI System Description:
