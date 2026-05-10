@@ -687,13 +687,18 @@ Key Obligations: ${a.keyObligations.join("; ")}
 Application Date: ${a.applicationDate}
 `).join("\n---\n")}`;
 
-  const response = await fetch("/api/analyze", {
+const response = await fetch("/api/analyze", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ ... }),
+  body: JSON.stringify({
+    model: "claude-sonnet-4-20250514",
+    max_tokens: 4000,
+    system: systemPrompt,
+    messages: [{ role: "user", content: userMessage }],
+  }),
 });
 
-  const data = await response.json();
-  const raw = data.content.map((i) => i.text || "").join("").replace(/```json|```/g, "").trim();
-  return JSON.parse(raw);
+const data = await response.json();
+const raw = data.content.map((i) => i.text || "").join("").replace(/```json|```/g, "").trim();
+return JSON.parse(raw);
 }
